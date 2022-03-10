@@ -1,0 +1,26 @@
+{%extends "layout.html"%}{% block body%}
+<h1></h1>
+
+<p></p>
+
+<div class="card mb-3">
+  <img
+    src="{{url_for('static', filename='/assests/jamsession.jpg')}}"
+    class="card-img-top"
+    alt="music-picture"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{event.event_name}}</h5>
+    <h6>Location: {{event.location}}, {{event.city}}, {{event.state}}</h6>
+    <h6>When: {{event.date}} {{event.start_time}} {{event.end_time}}</h6>
+    <p class="card-text">{{event.description}}</p>
+    <p class="card-text">
+      <small class="text-muted"
+        >Hosted by:
+        <a href="/user/profile/{{event.user_id}}">{{event.host.full_name}}</a>
+      </small>
+    </p>
+  </div>
+  <!-- ijam\flask_app\static\assests\jamsession.jpg -->
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{%extends "layout.html"%}{% block body%}
+<h1>{{user.full_name}}</h1>
+<h4>Bio:</h4>
+<p>{{user.bio}}</p>
+<form action="/send_message" method="POST">
+  <textarea name="message" id="" cols="30" rows="10"></textarea>
+  <input type="submit" vlaue="submit" />
+</form>
+{% endblock %}
