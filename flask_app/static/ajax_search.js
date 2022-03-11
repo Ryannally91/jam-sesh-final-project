@@ -9,17 +9,37 @@ search_events_form.onsubmit = function (e) {
       console.log(data);
       console.log(typeof data);
       console.log(data.length);
+      resultsTable = document.getElementById("result-table");
+      resultsTable.innerHTML = `<table class="table table-bordered table_marg">
+  <thead>
+    <tr>
+      <th scope="col">Event</th>
+      <th scope="col">When</th>
+      <th scope="col">Location</th>
+    </tr>
+  </thead>
+  <tbody id=results>
+  </tbody>
+  </table>`;
       results = document.getElementById("results");
-      results.innerHTML = "";
       for (i = 0; i < data.length; i++) {
         results.innerHTML += `<tr>
           <td><a href= "/event_details/${data[i].id}">${data[i].event_name}</a></td>
           <td>${data[i].date}</td>
           <td>${data[i].location}, ${data[i].city}, ${data[i].state}</td>
+
         </tr>`;
       }
     });
 };
-// <td>${data.event[i].date}  ${events[i].start_time} to ${events[i].end_time}</td>
-// <td>${events[i].location}, ${events[i].city}, ${events[i].state}</td>
-// <td>${events[i].host.first_name} ${events[i].host.last_name} </td>
+
+// table class="table table-bordered table_marg">
+//   <thead>
+//     <tr>
+//       <th scope="col">Event</th>
+//       <th scope="col">When</th>
+//       <th scope="col">Location</th>
+//     </tr>
+//   </thead>
+//   <tbody id="results"></tbody>
+// </table> -->
