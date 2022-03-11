@@ -33,13 +33,16 @@ def create_event_form():
 
 @app.route('/create_event', methods= ['POST'])
 def create_event():
-    if event.Event.create_event(request.form):
-        return redirect('/success')
-    return redirect('/create_event_form') 
+    if not event.Event.create_event(request.form):
+        return redirect('/create_event_form') 
+    session['event_id'] = event.Event.create_event(request.form)
+    return redirect(f"/success/{session['event_id']}") 
+   
 
-@app.route('/success')
-def success():
-    return render_template('success.html')
+@app.route('/success/<int:id>')
+def success(id):
+    _event = event.Event.get_event_by_id(id)
+    return render_template('success.html', event = _event)
 
 @app.route('/event_details/<int:id>')
 def show(id):
@@ -48,5 +51,31 @@ def show(id):
     return render_template('show_event.html', event = this_event )
 
 
+@app.route('/edit/event/<int:id>')
+def edit_event_form(id):
+    if 'user_id' not in session:
+        return render_template('index.html')
+    return render_template('edit_event_form.html', event = event.Event.get_event_by_id(id), states = states)
+
+@app.route('/update_event/<int:id>', methods = ['POST'])
+def update_event(id):
+    if event.Event.update_event_by_id(request.form):
+        return redirect(f'/success/{id}')
+    return redirect(f'/edit/event/{id}') 
+
+
+@app.route('/delete/event/<int:id>')
+def delete_event(id):
+    if 'user_id' not in session:
+        return render_template('index.html')
+    event.Event.delete_event(id)
+    return redirect (f"/dashboard/{session['user_id']}")
+
+
 
 # , results = event.Event.get_events_by_city(request.form)
+
+@app.route('/RSVP/<int:id>', methods = ['POST'])
+def rsvp(id):
+    event.Event.rsvp(request.form)
+    return redirect(f'/success/{id}')

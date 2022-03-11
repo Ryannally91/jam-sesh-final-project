@@ -1,39 +1,58 @@
 {%extends "layout.html"%}{% block body%}
-<h1>SEARCH</h1>
-<form action="/search_results" id="search_events_form" method="post">
-  <div class="row">
-    <div class="col">
-      <input type="date" name="date" class="form-control" />
-    </div>
-    <div class="col">
-      <input
-        type="text"
-        class="form-control"
-        name="city"
-        placeholder="city"
-        aria-label="city"
-      />
-    </div>
+
+<div class="center">
+  <div>
+    <p>
+      Find <span><a href="/"> events near me</a></span> or customize search
+      below
+    </p>
+    <form action="/search_results" id="search_events_form" method="post">
+      <div class="form-row align-items-center">
+        <div class="col-auto mx-4">
+          <label class="sr-only" for="inlineFormInput">City</label>
+          <input
+            type="text"
+            class="form-control mb-2"
+            name="city"
+            id="inlineFormInput"
+            placeholder="New York, Austin, etc."
+          />
+        </div>
+        <div class="col-auto mx-4">
+          <label class="sr-only" for="inlineFormInputGroup">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="inlineFormInputGroup"
+              name="date"
+            />
+          </div>
+        </div>
+        <div class="col-auto mx-4 my-2">
+          <div class="form-check ">
+            <label class="form-check-label" for="state">
+              State
+            </label>
+            <select name="state" id="">
+              {% for state in states %}
+              <option value="{{state}}">{{state}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="col-auto d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="row">
-    <div class="col">
-      <label for="state">State</label>
-      <select name="state" id="">
-        {% for state in states %}
-        <option value="{{state}}">{{state}}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-  </div>
-</form>
-<table class="table table-bordered">
+</div>
+<table class="table table-bordered table_marg">
   <thead>
     <tr>
       <th scope="col">Event</th>
       <th scope="col">When</th>
       <th scope="col">Location</th>
-      <th scope="col">Host</th>
     </tr>
   </thead>
   <tbody id="results"></tbody>
@@ -49,4 +68,5 @@
   <!-- display each message in a paragraph tag -->
   {% endfor %} {% endif %} {% endwith %}
 </ul>
+
 {% endblock %}

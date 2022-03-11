@@ -33,3 +33,8 @@ ___Change to events
 
 --to put in success page or just use AJAX
   {{this_event.location}}
+
+  --edit event state selector
+  -----{% if state == event.state %}
+      <option value="{{event.state}}" selected>{{event.state}}</option>
+      {% else %}

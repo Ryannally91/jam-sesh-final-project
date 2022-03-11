@@ -17,49 +17,59 @@
     />
     <title>login</title>
   </head>
-  <body class="" main>
-    <div class="main secondary">
-      <form action="/login" method="post">
-        <div class="mb-3">
-          <label for="name" class="form-label">Sign-in</label>
-        </div>
+  <body>
+    <img
+      id="login_img"
+      src="{{url_for('static', filename='/assests/pexels-snapwire-6966.jpg')}}"
+    />
+    <div class="main">
+      <h3 class="front text-center">Let's Jam!</h3>
+      <h4 class="front text-center">
+        Find local jams in you're area or host your own!
+      </h4>
+      <div class="main secondary front">
+        <form action="/login" method="post">
+          <div class="mb-1">
+            <label for="name" class="text-center text-light">Sign-in</label>
+          </div>
 
-        <div class="mb-3">
-          <label for="email" class="form-label">email:</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            placeholder="email@e.com"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">password:</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-            placeholder="password"
-            required
-          />
-        </div>
-        <div id="btn_submit">
-          <input type="submit" name="submit" />
-        </div>
-        {% with messages = get_flashed_messages() %}
-        <!-- declare a variable called messages -->
-        {% if messages %}
-        <!-- check if there are any messages -->
-        {% for message in messages %}
-        <!-- loop through the messages -->
-        <p>{{message}}</p>
-        <!-- display each message in a paragraph tag -->
-        {% endfor %} {% endif %} {% endwith %}
-      </form>
+          <div class="mb-3">
+            <label for="email" class="form-label">email:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="email@e.com"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="password"
+              required
+            />
+          </div>
+          <div id="btn_submit">
+            <input type="submit" name="submit" />
+          </div>
+          {% with messages = get_flashed_messages() %}
+          <!-- declare a variable called messages -->
+          {% if messages %}
+          <!-- check if there are any messages -->
+          {% for message in messages %}
+          <!-- loop through the messages -->
+          <p>{{message}}</p>
+          <!-- display each message in a paragraph tag -->
+          {% endfor %} {% endif %} {% endwith %}
+        </form>
+        <a href="/registration">No account? Create one</a>
+      </div>
     </div>
-    <a href="/registration">No account? Create one</a>
   </body>
 </html>

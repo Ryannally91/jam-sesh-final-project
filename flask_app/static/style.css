@@ -1,9 +1,30 @@
 .main {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: rgb(80, 87, 87);
   width: 80%;
   margin: auto;
+}
+
+#login_img {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 900px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* z-index: 2; */
+}
+
+@media screen and (max-width: 1024px) {
+  /* Specific to this particular image */
+  #login_img {
+    left: 50%;
+    margin-left: -512px; /* 50% */
+  }
 }
 
 #btn_submit {
@@ -12,14 +33,22 @@
   margin: 5px;
 }
 
-a {
+/* a {
   display: block;
   text-align: center;
+} */
+.front {
+  position: relative;
+  /* z-index: 2; */
 }
 
-.right {
+.center {
+  margin: 0px, auto;
+  display: flex;
+  justify-content: center;
 }
 
-h2 {
-  text-align: center;
+.table_marg {
+  width: 70%;
+  margin: auto;
 }

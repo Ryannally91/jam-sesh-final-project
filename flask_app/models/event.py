@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from time import strftime, gmtime
+from time import gmtime, strftime
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
 from flask import flash, session
 from flask_app import app
@@ -40,6 +40,12 @@ class Event:
         VALUES (%(event_name)s, %(location)s, %(state)s, %(city)s, %(user_id)s, %(date)s, %(start_time)s, %(end_time)s, %(description)s);''' # will need hidden input with recipient id when sending message
         return connectToMySQL(cls.db).query_db(query,data)
 
+    @classmethod
+    def rsvp(cls, data):
+        query='''
+        INSERT INTO RSVP (user_id, event_id)
+        VALUES (%(user_id)s, %(user_id)s);'''
+        return connectToMySQL(cls.db).query_db(query,data)
 
 #Read
 
@@ -51,6 +57,7 @@ class Event:
         LEFT JOIN users ON users.id = events.user_id
         ;"""
         result = connectToMySQL(cls.db).query_db(query)
+        print(">>>>>>>>>>",result)
         events = []
         for row in result:
             events.append(cls(row))
@@ -65,6 +72,7 @@ class Event:
                 WHERE id = %(id)s
                 ;'''
         results = connectToMySQL(cls.db).query_db(query,data)
+        print(results)
         if len(results) < 1:
             return False
         return cls(results[0])
@@ -72,8 +80,17 @@ class Event:
 
 
     @classmethod
-    def get_events_by_user_id(cls, id):
-        pass
+    def get_events_by_user_id(cls,id):
+        data = {'user_id' : id}
+        query = '''SELECT * FROM events
+                WHERE user_id = %(user_id)s
+                ;'''   ###May need to revise query
+        result = connectToMySQL(cls.db).query_db(query,data)
+        events = []
+        for row in result: 
+            events.append(cls(row))
+        print(events)
+        return events
     ##find jams near user location
 
     @classmethod
@@ -82,13 +99,20 @@ class Event:
                     WHERE date = %(date)s
                 ;'''
         result = connectToMySQL(cls.db).query_db(query,data)
+        print(result)
         # events = []
         for i in range(len(result)): 
-            result[i]['start_time'] = str(result[i]['start_time'])
-            result[i]['end_time'] = strftime("%H:%M", gmtime(result[i]['end_time']))
+            print(result[i]['start_time'])
+            # print( gmtime(result[i]['start_time']) ) 
+            result[i]['start_time'] = 'test'
+            result[i]['end_time'] = 'test'
+            print(result[i]['start_time'],
+            result[i]['end_time'])
         return result
         # from request.form(start and end) plug those values in display in templates table
         # WHERE date_time >= %(date_time_start)s AND date_time <= %(date_time_end)s
+        # strftime("%I:%M", gmtime(result[i]['start_time']))
+        # strftime("%I:%M", gmtime(result[i]['end_time']))
 
     @classmethod
     def get_events_by_city(cls, data):
@@ -109,6 +133,9 @@ class Event:
 
     @classmethod
     def update_event_by_id(cls, data):
+        if not cls.validate_event(data):
+            return False
+        data = cls.parsed_data(data)
         query = """
         UPDATE events
         SET event_name = %(event_name)s, location = %(location)s,  state = %(state)s,  city = %(city)s, date_time = %(date_time)s, description = %(description)s, user_id= %(user_id)s
@@ -122,10 +149,11 @@ class Event:
     @classmethod
     def delete_event(cls,id):
         data = { 'id' : id }
+        print('-------------madeit', data)
         query = """
-        DELETE * FROM events
+        DELETE FROM events
         WHERE id = %(id)s
-        ;"""
+        ;""" # * in delete query
         return connectToMySQL(cls.db).query_db(query, data)
 
 

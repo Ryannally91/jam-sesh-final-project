@@ -40,17 +40,34 @@ def register():
     user_id = user.User.register_user(request.form)
     if user_id:
         return redirect (f"/dashboard/{session['user_id']}")
-    return redirect ('/')
+    return redirect ('/registration')
 
 @app.route('/dashboard/<int:id>')
 def home(id):
-
-    return render_template('dashboard.html',  events = event.Event.get_all_events())
+    hosted_events = event.Event.get_events_by_user_id(session['user_id'])
+    for e in hosted_events:
+        print('-------------------',e.location)
+    return render_template('dashboard.html',  events = event.Event.get_all_events(), hosted_events = hosted_events)
 
 @app.route('/user/profile/<int:id>')
 def user_profile(id):
     _user = user.User.get_user_by_id(id)
     return render_template('show_profile.html', user = _user)
+
+
+@app.route('/update/user/<int:id>', methods = ['POST'])
+def update_user(id):
+    if 'user_id' not in session:
+        return redirect ('/')
+    user.User.update_user(id)
+    return redirect('/')
+
+@app.route('/edit_account_settings/<int:id>')
+def edit_user_form(id):
+    if 'user_id' not in session:
+        return render_template('index.html')
+    this_user = user.User.get_user_by_id(id)
+    return render_template('edit_account_settings.html', user = this_user, states = states)
 
 @app.route('/logout')
 def logout():
