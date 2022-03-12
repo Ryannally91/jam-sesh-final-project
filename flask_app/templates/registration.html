@@ -1,6 +1,6 @@
 {%extends "layout.html"%}{% block body%}
 <div class="main secondary">
-  <form action="/register/user" method="post">
+  <form action="/register/user" method="post" class="form-container">
     <div class="mb-3">
       <label for="first_name" class="form-label">First Name:</label>
       <input
@@ -92,18 +92,21 @@
         <button>submit</button>
       </a>
     </div>
+    <ul>
+      {% with messages = get_flashed_messages() %}
+      <!-- declare a variable called messages -->
+      {% if messages %}
+      <!-- check if there are any messages -->
+      {% for message in messages %}
+      <!-- loop through the messages -->
+      <li>{{message}}</li>
+      <!-- display each message in a paragraph tag -->
+      {% endfor %} {% endif %} {% endwith %}
+    </ul>
   </form>
+  <p class="text-center mt-3">
+    <a href="/">home</a>
+  </p>
 </div>
-<ul>
-  {% with messages = get_flashed_messages() %}
-  <!-- declare a variable called messages -->
-  {% if messages %}
-  <!-- check if there are any messages -->
-  {% for message in messages %}
-  <!-- loop through the messages -->
-  <li>{{message}}</li>
-  <!-- display each message in a paragraph tag -->
-  {% endfor %} {% endif %} {% endwith %}
-</ul>
-<a href="/">home</a>
+
 {% endblock %}

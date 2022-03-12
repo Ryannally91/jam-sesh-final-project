@@ -27,8 +27,9 @@
       <h4 class="front text-center">
         Find local jams in you're area or host your own!
       </h4>
+
       <div class="main secondary front">
-        <form action="/login" method="post">
+        <form action="/login" method="post" class="form-container">
           <div class="mb-1">
             <label for="name" class="text-center text-light">Sign-in</label>
           </div>
@@ -68,7 +69,9 @@
           <!-- display each message in a paragraph tag -->
           {% endfor %} {% endif %} {% endwith %}
         </form>
-        <a href="/registration">No account? Create one</a>
+        <p class="front text-center mt-4">
+          <a href="/registration"> No account? Create one </a>
+        </p>
       </div>
     </div>
   </body>

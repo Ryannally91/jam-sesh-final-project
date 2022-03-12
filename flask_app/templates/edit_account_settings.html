@@ -1,6 +1,10 @@
 {%extends "layout.html"%}{% block body%}
 <div class="main secondary">
-  <form action="/update/user/{{session.user_id}}" method="post">
+  <form
+    action="/update/user/{{session.user_id}}"
+    method="post"
+    class="form-container"
+  >
     <div class="mb-3">
       <label for="first_name" class="form-label">First Name:</label>
       <input

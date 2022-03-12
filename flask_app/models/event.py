@@ -44,7 +44,7 @@ class Event:
     def rsvp(cls, data):
         query='''
         INSERT INTO RSVP (user_id, event_id)
-        VALUES (%(user_id)s, %(user_id)s);'''
+        VALUES (%(user_id)s, %(event_id)s);'''
         return connectToMySQL(cls.db).query_db(query,data)
 
 #Read

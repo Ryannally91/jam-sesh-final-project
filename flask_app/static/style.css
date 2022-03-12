@@ -1,6 +1,14 @@
 .main {
   width: 80%;
   margin: auto;
+  margin-top: 2.5rem;
+}
+
+body {
+  min-width: 320px;
+  font-family: "Helvetica Neue", Helvetica-Neue, Helvetica, Arial, sans-serif;
+  line-height: 18px;
+  background: #a8a8a8 url(/images/bg-page.gif) repeat-x;
 }
 
 #login_img {
@@ -51,4 +59,11 @@
 .table_marg {
   width: 70%;
   margin: auto;
+}
+
+.form-container {
+  width: 60%;
+  margin: auto;
+  background-color: rgb(221, 226, 230);
+  padding: 0.5rem;
 }

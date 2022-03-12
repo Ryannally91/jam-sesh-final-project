@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .mcw {
+      margin-left: 200px;
+      position: relative;
+      min-height: 100%;
+
+      /*content view*/
+    }
+    .cv {
+      margin-left: 200px;
+      position: relative;
+      min-height: 100%;
+    }
+    /*globals*/
+    a,
+    a:focus,
+    a:hover {
+      text-decoration: none;
+    }
+
+    .inbox {
+      .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      ul,
+      li {
+        margin: 0;
+        padding: 0;
+      }
+      ul {
+        li {
+          list-style: none;
+          a {
+            display: block;
+            padding: 10px 20px;
+          }
+        }
+      }
+    }
+    .msb,
+    .mnb {
+      -moz-animation: slidein 300ms forwards;
+      -o-animation: slidein 300ms forwards;
+      -webkit-animation: slidein 300ms forwards;
+      animation: slidein 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+    .mcw {
+      -moz-animation: bodyslidein 300ms forwards;
+      -o-animation: bodyslidein 300ms forwards;
+      -webkit-animation: bodyslidein 300ms forwards;
+      animation: bodyslidein 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
+    .mnb {
+      margin-left: 0;
+      -moz-animation: bodyslideout 300ms forwards;
+      -o-animation: bodyslideout 300ms forwards;
+      -webkit-animation: bodyslideout 300ms forwards;
+      animation: bodyslideout 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+    .msb {
+      -moz-animation: slideout 300ms forwards;
+      -o-animation: slideout 300ms forwards;
+      -webkit-animation: slideout 300ms forwards;
+      animation: slideout 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+  </style>
+
+  <body></body>
+</html>
+
+<div class="mcw">
+  <!--navigation here-->
+  <!--main content view-->
+  <div class="cv">
+    <div>
+      <div class="inbox">
+        <div class="inbox-sb"></div>
+        <div class="inbox-bx container-fluid">
+          <div class="row">
+            <div class="col-md-2">
+              <ul>
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Sent</a></li>
+                <li><a href="#">Trash</a></li>
+              </ul>
+            </div>
+            <div class="col-md-10">
+              <table class="table table-stripped">
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><i class="fa fa-star-o"></i></td>
+                    <td>Jetpack</td>
+                    <td>
+                      Announcing some highly requested improvements and our new
+                      affiliate program
+                    </td>
+                    <td></td>
+                    <td>Mar 08</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><i class="fa fa-star-o"></i></td>
+                    <td>Jetpack</td>
+                    <td>
+                      Announcing some highly requested improvements and our new
+                      affiliate program
+                    </td>
+                    <td></td>
+                    <td>Mar 08</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><i class="fa fa-star-o"></i></td>
+                    <td>Jetpack</td>
+                    <td>
+                      Announcing some highly requested improvements and our new
+                      affiliate program
+                    </td>
+                    <td></td>
+                    <td>Mar 08</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><i class="fa fa-star-o"></i></td>
+                    <td>Jetpack</td>
+                    <td>
+                      Announcing some highly requested improvements and our new
+                      affiliate program
+                    </td>
+                    <td></td>
+                    <td>Mar 08</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
