@@ -75,7 +75,10 @@
     </nav> -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">
+          <img class="nav_icon"
+    src="{{url_for('static', filename='/assests/jam_sesh_can_banjo.jpg')}}" width="40" height="40"/>
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -89,13 +92,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="/search_event">Find Jam</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+              <a class="nav-link" href="/create_event_form">Create Jam</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -104,22 +110,42 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown
+                Settings
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="/friends">View Friends</a></li>
+                  <li><a class="dropdown-item" href="/inbox/{{session.user_id}}">Inbox</a></li>
+                  <li><a class="dropdown-item" href="/edit_account_settings/{{session.user_id}}">Edit Account</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 </li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
+            </li> -->
           </ul>
-          <form class="d-flex">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Settings
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/friends">View Friends</a></li>
+                <li><a class="dropdown-item" href="/inbox/{{session.user_id}}">Inbox</a></li>
+                <li><a class="dropdown-item" href="/edit_account_settings/{{session.user_id}}">Edit Account</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </li>
+            </ul>
+          </li></ul>
+          <!-- <form class="d-flex">
             <input
               class="form-control me-2"
               type="search"
@@ -129,7 +155,7 @@
             <button class="btn btn-outline-success" type="submit">
               Search
             </button>
-          </form>
+          </form> -->
         </div>
       </div>
     </nav>

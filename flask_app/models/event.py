@@ -57,7 +57,7 @@ class Event:
         LEFT JOIN users ON users.id = events.user_id
         ;"""
         result = connectToMySQL(cls.db).query_db(query)
-        print(">>>>>>>>>>",result)
+        # print(">>>>>>>>>>",result)
         events = []
         for row in result:
             events.append(cls(row))
@@ -72,7 +72,7 @@ class Event:
                 WHERE id = %(id)s
                 ;'''
         results = connectToMySQL(cls.db).query_db(query,data)
-        print(results)
+        # print(results)
         if len(results) < 1:
             return False
         return cls(results[0])
@@ -89,7 +89,7 @@ class Event:
         events = []
         for row in result: 
             events.append(cls(row))
-        print(events)
+        # print(events)
         return events
     ##find jams near user location
 
@@ -99,20 +99,34 @@ class Event:
                     WHERE date = %(date)s
                 ;'''
         result = connectToMySQL(cls.db).query_db(query,data)
-        print(result)
+        # print(result)
         # events = []
         for i in range(len(result)): 
-            print(result[i]['start_time'])
+            # print(result[i]['start_time'])
             # print( gmtime(result[i]['start_time']) ) 
             result[i]['start_time'] = 'test'
             result[i]['end_time'] = 'test'
-            print(result[i]['start_time'],
-            result[i]['end_time'])
+            # print(result[i]['start_time'],
+            # result[i]['end_time'])
         return result
         # from request.form(start and end) plug those values in display in templates table
         # WHERE date_time >= %(date_time_start)s AND date_time <= %(date_time_end)s
         # strftime("%I:%M", gmtime(result[i]['start_time']))
         # strftime("%I:%M", gmtime(result[i]['end_time']))
+
+    @classmethod
+    def get_events_by_state(cls, id):
+        _user= user.User.get_user_by_id(id)
+        user_state = _user.state
+        query = '''SELECT * FROM events
+                    WHERE state = %(user_state)s
+                ;'''
+        result = connectToMySQL(cls.db).query_db(query,data)
+        print(result)
+        events=[]
+        for row in result:
+            events.append(cls(row))
+        return events
 
     @classmethod
     def get_events_by_city(cls, data):

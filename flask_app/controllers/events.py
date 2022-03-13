@@ -17,6 +17,10 @@ def search_event():
     # events = event.Event.get_events_by_city()
     return render_template('search_event.html', states= states)
 
+@app.route('/search_state/<int:id>')
+def search_by_me(id):
+    events = event.Event.get_events_by_state(id)
+
 @app.route('/search_results', methods=['POST'] )
 def search_results():
     # if request.form['city'] and request.form['date']:

@@ -10,17 +10,13 @@ from flask_app.controllers import users
 @app.route('/create_message', methods = ['POST'])
 def send_message():
     print("I made it this far!!!!!")
-    data = {
-        'content' : request.form['content'],
-        'sender_id' : session['user_id'],
-        'recipient_id': request.form['recipient_id'],
-    }
-    message.Message.create_message(data)
+    
+    message.Message.create_message(request.form)
     return redirect (f"/dashboard/{session['user_id']}")
 
 @app.route('/inbox/<int:id>')
 def inbox(id):
-    return render_template('inbox.html')
+    return render_template('inbox.html', messages = message.Message.get_all_messages_by_user_id(id))
 
 @app.route('/delete/<id>')
 def delete(id):

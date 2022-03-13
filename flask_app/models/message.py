@@ -13,9 +13,9 @@ class Message:
         self.id = data['id']
         self.content = data['content']
         self.sender_id = data['sender_id']
-        self.sender = data['sender']#should change to sender (it will have all the info)
+        self.sender = user.User.get_user_by_id(data['sender_id'])
         self.recipient_id = data['recipient_id']
-        self.recipient = data['recipient']
+        self.recipient = user.User.get_user_by_id(data['recipient_id'])
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
@@ -37,14 +37,16 @@ class Message:
     #CREATE
     @classmethod
     def create_message(cls, data):
+        
         query='''
         INSERT INTO messages (content, sender_id, recipient_id)
         VALUES (%(content)s,%(sender_id)s,%(recipient_id)s);''' # will need hidden input with recipient id when sending message
+        print('made it this far <<><><><')
         return connectToMySQL(cls.db).query_db(query,data)
 
     #READ
     @classmethod
-    def get_all_messages(cls, id):
+    def get_all_messages_by_user_id(cls, id):
         data= {'id' : id}
         query='''SELECT users.first_name as recipient, users2.first_name as sender, messages.*
         FROM messages
@@ -56,8 +58,7 @@ class Message:
         if result:
             messages=[]
             for m in result:
-                one_message = cls(m)
-                messages.append(one_message)
+                messages.append(cls(m))
             return messages
         return result
            
