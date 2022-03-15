@@ -5,6 +5,10 @@ from flask import render_template, redirect, request, session, flash, url_for, j
 from flask_app.models import user, message, comment, event
 from flask_app.controllers import users, comments
 import requests #have to install for api requests to gmap
+from google_api_key import api_key
+from urllib.parse import urlencode
+import json
+
 
 states = [ 'AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
            'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME',
@@ -51,8 +55,28 @@ def success(id):
 @app.route('/event_details/<int:id>')
 def show(id):
     this_event = event.Event.get_event_by_id(id)
-    print(this_event)
-    return render_template('show_event.html', event = this_event )
+    base_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+    location = this_event.location
+    print(location)
+    params = {
+    "key": api_key,
+    "input": {location},
+    "inputtype": "textquery",
+    "fields": "place_id,formatted_address,name,geometry"
+    }
+
+    params_encoded = urlencode(params)
+    places_endpoint = f"{base_url}?{params_encoded}"
+
+    r = requests.get(places_endpoint)
+    #if len(r.candidates) <1:  redirect with flash errors
+    # put this as validation when creating an event (put in create controler, use form data to pass through)
+    print(r.status_code)
+    print(r.json())  
+    r = r.json()
+   
+
+    return render_template('show_event.html', event = this_event, r = r )
 
 
 @app.route('/edit/event/<int:id>')

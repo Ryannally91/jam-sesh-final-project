@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs&libraries=places&callback=initAutocpmlete"
+            async
+            defer
+        ></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let autocomplete;
+            function initAutocpmlete() {
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById("autocomplete"),
+                    {
+                        //types: ["establishments"],
+                        componentRestrictions: { country: "us" },
+                        fields: ["place_id", "geometry", "name"],
+                    }
+                );
+            }
+        </script>
+        <input type="text" id="autocomplete" placeholer="Enter location" />
+
+        <script>
+            let autocomplete;
+            function initAutocpmlete() {
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById("address_form"),
+                    {
+                        //types: ["establishments"],
+                        componentRestrictions: { country: "us" },
+                        fields: ["place_id", "geometry", "name"],
+                    }
+                );
+            }
+        </script>
+        <form action="">
+            <label for="location">location</label>
+            <input id="address_form" type="text" name="location" />
+            <label for="city">city</label>
+            <input type="text" name="city" />
+            <label for="state">state</label>
+            <input type="text" name="state" />
+        </form>
+    </body>
+</html>

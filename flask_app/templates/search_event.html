@@ -1,35 +1,57 @@
 {%extends "layout.html"%}{% block body%}
 
 <div class="center">
-  <div>
-    <p>
-      Find <span><a href="/search_state/{{session.user_id}}"> events near me</a></span> or customize search
-      below
-      <!-- ajax -->
-    </p>
-    <form action="/search_results" id="search_events_form" method="post" >
-      <div class="form-row align-items-center ">
-        <div class="col-auto mx-4">
-          <label class="sr-only" for="inlineFormInput">City</label>
-          <input
-            type="text"
-            class="form-control mb-2"
-            name="city"
-            id="inlineFormInput"
-            placeholder="New York, Austin, etc."
-          />
-        </div>
-        <div class="col-auto mx-4">
-          <label class="sr-only" for="inlineFormInputGroup">Date</label>
-            <input
-              type="date"
-              class="form-control"
-              id="inlineFormInputGroup"
-              name="date"
-            />
-          </div>
-        </div>
-        <div class="col-auto mx-4 my-2">
+    <div>
+        <p>
+            Find
+            <span
+                ><a href="/search_state/{{session.user_id}}">
+                    events near me</a
+                ></span
+            >
+            or customize search below
+            <!-- ajax -->
+        </p>
+        <form action="/search_results" id="search_events_form" method="post">
+            <div class="form-row align-items-center">
+                <div class="col-auto mx-4">
+                    <script>
+                        let autocomplete;
+                        function initAutocpmlete() {
+                            autocomplete = new google.maps.places.Autocomplete(
+                                document.getElementById("autocomplete"),
+                                {
+                                    //types: ["establishments"],
+                                    componentRestrictions: { country: "us" },
+                                    fields: ["place_id", "geometry", "name"],
+                                }
+                            );
+                        }
+                    </script>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Location:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="autocomplete"
+                            name="location"
+                            placeholder="Specific name (Zilker Park, Brewery, etc.)"
+                            required
+                        />
+                    </div>
+                    <div class="col-auto mx-4">
+                        <label class="sr-only" for="inlineFormInputGroup"
+                            >Date</label
+                        >
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="inlineFormInputGroup"
+                            name="date"
+                        />
+                    </div>
+                </div>
+                <!-- <div class="col-auto mx-4 my-2">
           <div class="form-check ">
             <label class="form-check-label" for="state">
               State
@@ -40,13 +62,15 @@
               {% endfor %}
             </select>
           </div>
-        </div>
-        <div class="col-auto d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary mb-2">Submit</button>
-        </div>
-      </div>
-    </form>
-  </div>
+        </div> -->
+                <div class="col-auto d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary mb-2">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <div id="result-table"></div>
 <!-- <table class="table table-bordered table_marg">
@@ -60,15 +84,15 @@
   <tbody id="results"></tbody>
 </table> -->
 <ul>
-  {% with messages = get_flashed_messages() %}
-  <!-- declare a variable called messages -->
-  {% if messages %}
-  <!-- check if there are any messages -->
-  {% for message in messages %}
-  <!-- loop through the messages -->
-  <li>{{message}}</li>
-  <!-- display each message in a paragraph tag -->
-  {% endfor %} {% endif %} {% endwith %}
+    {% with messages = get_flashed_messages() %}
+    <!-- declare a variable called messages -->
+    {% if messages %}
+    <!-- check if there are any messages -->
+    {% for message in messages %}
+    <!-- loop through the messages -->
+    <li>{{message}}</li>
+    <!-- display each message in a paragraph tag -->
+    {% endfor %} {% endif %} {% endwith %}
 </ul>
 
 {% endblock %}

@@ -21,6 +21,11 @@
       src="{{ url_for('static', filename='ajax_search.js')}}"
     ></script>
     <!-- bootstrap js at bottom -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs&libraries=places&callback=initAutocpmlete"
+    async
+    defer
+></script>
     <title>jamSesh</title>
   </head>
 
@@ -72,7 +77,8 @@
       </div>
     </div>
     
-    </nav> -->
+    </nav> -->  
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
@@ -123,7 +129,7 @@
               </ul>
             </li> -->
           </ul>
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav text-right">
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -159,7 +165,9 @@
         </div>
       </div>
     </nav>
+    <div class="container">
     <div class="main">{% block body %}{% endblock %}</div>
+  </div>
     <script
       src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

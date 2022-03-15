@@ -1,29 +1,46 @@
 {%extends "layout.html"%}{% block body%}
-<h1></h1>
-
-<p></p>
 
 <div class="card mb-3">
-  <img
-    src="{{url_for('static', filename='/assests/jamsession.jpg')}}"
-    class="card-img-top"
-    alt="music-picture"
-  />
-  <div class="card-body">
-    <h5 class="card-title">{{event.event_name}}</h5>
-    <h6>Location: {{event.location}}, {{event.city}}, {{event.state}}</h6>
-    <h6>
-      When: {{event.date.strftime('%B %d, %Y')}} {{event.start_time}}
-      {{event.end_time}}
-    </h6>
-    <p class="card-text">{{event.description}}</p>
-    <p class="card-text">
-      <small class="text-muted"
-        >Hosted by:
-        <a href="/user/profile/{{event.user_id}}">{{event.host.full_name}}</a>
-      </small>
-    </p>
-  </div>
-  <!-- ijam\flask_app\static\assests\jamsession.jpg -->
+    <img
+        src="{{url_for('static', filename='/assests/jamsession.jpg')}}"
+        class="card-img-top"
+        alt="music-picture"
+    />
+    <div class="d-flex">
+        <!-- need to get map to have responsive sizing -->
+        <div class="card-body">
+            <!-- card-body -->
+            <h5 class="card-title">{{event.event_name}}</h5>
+            <h6>
+                When: {{event.date.strftime('%B %d, %Y')}} {{event.start_time}}
+                {{event.end_time}}
+            </h6>
+            {%if r%}
+            <h6>{{r.candidates[0].formatted_address}}</h6>
+            {% else %}
+            <h6>{{event.location}} {{event.city}}, {{event.state}}</h6>
+            {% endif %}
+            <p class="card-text">{{event.description}}</p>
+            <p class="card-text">
+                <small class="text-muted"
+                    >Hosted by:
+                    <a href="/user/profile/{{event.user_id}}"
+                        >{{event.host.full_name}}</a
+                    >
+                </small>
+            </p>
+        </div>
+        <div class="mx-5">
+            <iframe
+                width="300"
+                height="225"
+                style="border: 3"
+                loading="lazy"
+                allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?q=place_id:{{r.candidates[0].place_id}}&key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs"
+            ></iframe>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

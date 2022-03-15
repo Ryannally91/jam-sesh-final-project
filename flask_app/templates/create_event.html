@@ -1,95 +1,108 @@
 {%extends "layout.html"%}{% block body%}
 <form action="/create_event" method="post" class="form-container">
-  <input type="hidden" name="user_id" value="{{session['user_id']}}" />
+    <input type="hidden" name="user_id" value="{{session['user_id']}}" />
 
-  <div class="mb-3">
-    <label for="text" class="form-label">Event Name:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="event_name"
-      name="event_name"
-      placeholder="Bluegrass Jam, Free Form, Drum circle"
-      required
-    />
-  </div>
-  <div class="mb-3">
-    <label for="text" class="form-label">Location:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="location"
-      name="location"
-      placeholder="Specific name (Zilker Park, Brewery, etc.)"
-      required
-    />
-  </div>
-  <div class="mb-3">
-    <label for="description" class="form-label">Description:</label>
-    <input
-      type="description"
-      class="form-control"
-      id="description"
-      name="description"
-      placeholder="description"
-      required
-    />
-  </div>
-  <div class="mb-3">
-    <label for="date" class="form-label">Date:</label>
-    <input
-      type="date"
-      class="form-control"
-      id="date"
-      name="date"
-      min="{{current_day}}"
-      required
-    />
-    <!-- might have to break date and time in two parts -->
-  </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">Event Name:</label>
+        <input
+            type="text"
+            class="form-control"
+            id="event_name"
+            name="event_name"
+            placeholder="Bluegrass Jam, Free Form, Drum circle"
+            required
+        />
+    </div>
+    <script>
+        let autocomplete;
+        function initAutocpmlete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById("autocomplete"),
+                {
+                    //types: ["establishments"],
+                    componentRestrictions: { country: "us" },
+                    fields: ["place_id", "geometry", "name"],
+                }
+            );
+        }
+    </script>
+    <div class="mb-3">
+        <label for="text" class="form-label">Location:</label>
+        <input
+            type="text"
+            class="form-control"
+            id="autocomplete"
+            name="location"
+            placeholder="Specific name (Zilker Park, Brewery, etc.)"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <input
+            type="description"
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="description"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <label for="date" class="form-label">Date:</label>
+        <input
+            type="date"
+            class="form-control"
+            id="date"
+            name="date"
+            min="{{current_day}}"
+            required
+        />
+        <!-- might have to break date and time in two parts -->
+    </div>
 
-  <div class="mb-3">
-    <label for="start_time" class="form-label">Start time:</label>
-    <input
-      type="time"
-      class="form-control"
-      id="start_time"
-      name="start_time"
-      required
-    />
-  </div>
+    <div class="mb-3">
+        <label for="start_time" class="form-label">Start time:</label>
+        <input
+            type="time"
+            class="form-control"
+            id="start_time"
+            name="start_time"
+            required
+        />
+    </div>
 
-  <div class="mb-3">
-    <label for="end_time" class="form-label">End time:</label>
-    <input
-      type="time"
-      class="form-control"
-      id="end_time"
-      name="end_time"
-      required
-    />
-  </div>
+    <div class="mb-3">
+        <label for="end_time" class="form-label">End time:</label>
+        <input
+            type="time"
+            class="form-control"
+            id="end_time"
+            name="end_time"
+            required
+        />
+    </div>
 
-  <div class="mb-3">
-    <label for="city" class="form-label">City:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="city"
-      name="city"
-      placeholder="City"
-      required
-    />
-  </div>
-  <div class="mb-3">
-    <label for="user_state" class="form-label">State:</label>
-    <select name="state" id="">
-      {% for state in states %}
-      <option value="{{state}}">{{state}}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <button class="btn btn-primary" type="submit">Create</button>
+    <div class="mb-3">
+        <label for="city" class="form-label">City:</label>
+        <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            placeholder="City"
+            required
+        />
+    </div>
+    <div class="mb-3">
+        <label for="user_state" class="form-label">State:</label>
+        <select name="state" id="">
+            {% for state in states %}
+            <option value="{{state}}">{{state}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Create</button>
 </form>
 {% with messages = get_flashed_messages() %}
 <!-- declare a variable called messages -->

@@ -1,44 +1,44 @@
 .main {
-  width: 80%;
-  margin: auto;
-  margin-top: 2.5rem;
+    width: 80%;
+    margin: auto;
+    margin-top: 2.5rem;
 }
 
 body {
-  min-width: 320px;
-  font-family: "Helvetica Neue", Helvetica-Neue, Helvetica, Arial, sans-serif;
-  line-height: 18px;
-  background: #a8a8a8 url(/images/bg-page.gif) repeat-x;
+    min-width: 320px;
+    font-family: "Helvetica Neue", Helvetica-Neue, Helvetica, Arial, sans-serif;
+    line-height: 18px;
+    background: #a8a8a8 url(/images/bg-page.gif) repeat-x;
 }
 
 #login_img {
-  /* Set rules to fill background */
-  min-height: 100%;
-  min-width: 900px;
+    /* Set rules to fill background */
+    min-height: 100%;
+    min-width: 900px;
 
-  /* Set up proportionate scaling */
-  width: 100%;
-  height: auto;
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
 
-  /* Set up positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* z-index: 2; */
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* z-index: 2; */
 }
 
 @media screen and (max-width: 1024px) {
-  /* Specific to this particular image */
-  #login_img {
-    left: 50%;
-    margin-left: -512px; /* 50% */
-  }
+    /* Specific to this particular image */
+    #login_img {
+        left: 50%;
+        margin-left: -512px; /* 50% */
+    }
 }
 
 #btn_submit {
-  display: flex;
-  justify-content: center;
-  margin: 5px;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
 }
 
 /* a {
@@ -46,24 +46,29 @@ body {
   text-align: center;
 } */
 .front {
-  position: relative;
-  /* z-index: 2; */
+    position: relative;
+    /* z-index: 2; */
 }
 
 .center {
-  margin: 0px, auto;
-  display: flex;
-  justify-content: center;
+    margin: 0px, auto;
+    display: flex;
+    justify-content: center;
 }
 
 .table_marg {
-  width: 70%;
-  margin: auto;
+    width: 70%;
+    margin: auto;
 }
 
 .form-container {
-  width: 60%;
-  margin: auto;
-  background-color: rgb(221, 226, 230);
-  padding: 0.5rem;
+    width: 60%;
+    margin: auto;
+    background-color: rgb(221, 226, 230);
+    padding: 0.5rem;
+}
+
+.flex-around {
+    display: flex;
+    justify-content: space-around;
 }

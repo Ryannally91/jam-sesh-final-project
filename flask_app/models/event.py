@@ -5,7 +5,7 @@ from flask import flash, session
 from flask_app import app
 import re	# the regex module
 from flask_bcrypt import Bcrypt   
-from flask_app.models import message, event, friendship, user  
+from flask_app.models import message, friendship, user  
 
 
 class Event:
@@ -24,7 +24,7 @@ class Event:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.host = user.User.get_user_by_id(data['user_id'])  #or use query
-        self.rsvp = [] # may need to be its own table.  Many to many  Users can have many events, events have many users attending
+        self.rsvp_list = [] # may need to be its own table.  Many to many  Users can have many events, events have many users attending
 
 
         ###  Instance method for date display
@@ -34,7 +34,7 @@ class Event:
     def create_event(cls, data):
         if not cls.validate_event(data):
             return False
-        data = cls.parsed_data(data)
+        data = cls.parse_location(data)
         query='''
         INSERT INTO events (event_name, location, state, city, user_id, date, start_time, end_time, description)
         VALUES (%(event_name)s, %(location)s, %(state)s, %(city)s, %(user_id)s, %(date)s, %(start_time)s, %(end_time)s, %(description)s);''' # will need hidden input with recipient id when sending message
@@ -219,3 +219,23 @@ class Event:
             'description': data['description']
         }
         return parsed_data
+
+    @staticmethod
+    def parse_location(data):
+        location_breakdown = data['location'].split(',')
+        print(location_breakdown)
+        location = ', '.join([str(item) for item in location_breakdown[:-3]])
+        parsed_data = {
+            'location' : location,
+            'city' : location_breakdown[-3].strip(),
+            'state' : location_breakdown[-2].strip(),
+            'event_name': data['event_name'],
+            'user_id': data['user_id'],
+            'date' : data['date'],
+            'start_time' : data['start_time'],
+            'end_time' : data['end_time'],
+            'description': data['description']
+        }
+        print(data)
+        return parsed_data
+
