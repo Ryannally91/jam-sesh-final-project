@@ -27,17 +27,15 @@ class Event:
         self.rsvp_list = [] # may need to be its own table.  Many to many  Users can have many events, events have many users attending
 
 
-        ###  Instance method for date display
 
 #CREATE
     @classmethod
     def create_event(cls, data):
-        if not cls.validate_event(data):
-            return False
         data = cls.parse_location(data)
         query='''
         INSERT INTO events (event_name, location, state, city, user_id, date, start_time, end_time, description)
         VALUES (%(event_name)s, %(location)s, %(state)s, %(city)s, %(user_id)s, %(date)s, %(start_time)s, %(end_time)s, %(description)s);''' # will need hidden input with recipient id when sending message
+        
         return connectToMySQL(cls.db).query_db(query,data)
 
     @classmethod
@@ -60,6 +58,7 @@ class Event:
         # print(">>>>>>>>>>",result)
         events = []
         for row in result:
+            # row['start_time'].strftime("%I:%M %p")
             events.append(cls(row))
         return events
         # to use query to get host might need to create dict then pass into user class
@@ -88,6 +87,7 @@ class Event:
         result = connectToMySQL(cls.db).query_db(query,data)
         events = []
         for row in result: 
+            # row['start_time'].strftime("%I:%M %p")
             events.append(cls(row))
         # print(events)
         return events
@@ -101,6 +101,19 @@ class Event:
         result = connectToMySQL(cls.db).query_db(query,data)
         # print(result)
         # events = []
+        for i in range(len(result)):  
+            result[i]['start_time'] = 'test'
+            result[i]['end_time'] = 'test'
+        return result
+        
+
+    @classmethod
+    def get_events_by_city_ajax(cls, data):
+        query = '''SELECT * FROM events
+                WHERE city = %(city)s  AND state = %(state)s
+                ;'''   ###May need to revise query
+        result = connectToMySQL(cls.db).query_db(query,data)
+        print(result)
         for i in range(len(result)): 
             # print(result[i]['start_time'])
             # print( gmtime(result[i]['start_time']) ) 
@@ -109,51 +122,43 @@ class Event:
             # print(result[i]['start_time'],
             # result[i]['end_time'])
         return result
-        # from request.form(start and end) plug those values in display in templates table
-        # WHERE date_time >= %(date_time_start)s AND date_time <= %(date_time_end)s
-        # strftime("%I:%M", gmtime(result[i]['start_time']))
-        # strftime("%I:%M", gmtime(result[i]['end_time']))
 
     @classmethod
-    def get_events_by_state(cls, id):
-        _user= user.User.get_user_by_id(id)
-        user_state = _user.state
+    def get_events_by_city_date_ajax(cls, data):
         query = '''SELECT * FROM events
-                    WHERE state = %(user_state)s
-                ;'''
+                WHERE city = %(city)s 
+                AND state = %(state)s 
+                AND date = %(date)s
+                ;'''   ###May need to revise query
         result = connectToMySQL(cls.db).query_db(query,data)
         print(result)
-        events=[]
-        for row in result:
-            events.append(cls(row))
-        return events
+        for i in range(len(result)): 
+            result[i]['start_time'] = 'test'
+            result[i]['end_time'] = 'test'
+        return result
 
     @classmethod
     def get_events_by_city(cls, data):
         query = '''SELECT * FROM events
-                WHERE city = session['user_city']  AND state = session['user_state']
+                WHERE city = %(city)s  AND state = %(state)s
                 ;'''   ###May need to revise query
         result = connectToMySQL(cls.db).query_db(query,data)
         events = []
         for row in result: 
             events.append(cls(row))
         return events
-    @classmethod
-    def add_user_to_event():
-        pass
-
-
+    
     #UPDATE
 
     @classmethod
     def update_event_by_id(cls, data):
-        if not cls.validate_event(data):
-            return False
-        data = cls.parsed_data(data)
+        # id_event = data['id']
+        # data = cls.parse_location(data)
+        # data['id'] = id_event
         query = """
         UPDATE events
-        SET event_name = %(event_name)s, location = %(location)s,  state = %(state)s,  city = %(city)s, date_time = %(date_time)s, description = %(description)s, user_id= %(user_id)s
-        WHERE id = %(id)s
+        SET event_name = %(event_name)s, location = %(location)s,  state = %(state)s,  city = %(city)s, date = %(date)s, description = %(description)s, start_time = %(start_time)s, end_time= %(end_time)s
+        WHERE events.id = %(id)s
         ;"""
         result = connectToMySQL(cls.db).query_db(query, data)
         return result
@@ -173,8 +178,9 @@ class Event:
 
 
 ########### VALIDATE EVENT !!!!!!!!!!!!!!!!!
-    @staticmethod
-    def validate_event(data):
+    @classmethod
+    def validate_event(cls, data):
+        data = cls.parse_location(data) #could make as cls method and put here one time instead of contollers multiple times
         is_valid = True # assume true
         if len(data['event_name']) < 5:
             flash('Name must be 5 or more characters', 'event')
@@ -203,22 +209,6 @@ class Event:
             flash('city must be between 1 and 45 letters')
             is_valid = False
         return is_valid
-
-
-    @staticmethod
-    def parsed_data(data):
-        parsed_data={
-            'event_name': data['event_name'],
-            'location': data['location'],
-            'city': data['city'].lower().strip(),
-            'state': data['state'],
-            'user_id': data['user_id'],
-            'date' : data['date'],
-            'start_time' : data['start_time'],
-            'end_time' : data['end_time'],
-            'description': data['description']
-        }
-        return parsed_data
 
     @staticmethod
     def parse_location(data):

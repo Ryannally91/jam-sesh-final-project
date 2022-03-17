@@ -1,14 +1,15 @@
 .main {
     width: 80%;
     margin: auto;
-    margin-top: 2.5rem;
+    margin-top: 4.5rem;
 }
 
 body {
     min-width: 320px;
     font-family: "Helvetica Neue", Helvetica-Neue, Helvetica, Arial, sans-serif;
     line-height: 18px;
-    background: #a8a8a8 url(/images/bg-page.gif) repeat-x;
+    /* background: #a8a8a8 url(/images/bg-page.gif) repeat-x; */
+    background-color: #f6f6f6;
 }
 
 #login_img {
@@ -71,4 +72,7 @@ body {
 .flex-around {
     display: flex;
     justify-content: space-around;
+}
+
+iframe {
 }

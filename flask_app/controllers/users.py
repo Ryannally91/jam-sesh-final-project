@@ -28,9 +28,10 @@ def sign_in():
     this_user = user.User.find_by_email(data)
     session['user_id'] = this_user.id
     session['first_name'] = this_user.first_name
+    session['user_city'] =this_user.user_city
+    session['user_state'] = this_user.user_state
     return redirect(f'/dashboard/{this_user.id}')
-
-
+    
 @app.route('/registration')
 def registration_form():
     return render_template('registration.html', states = states)
@@ -44,10 +45,13 @@ def register():
 
 @app.route('/dashboard/<int:id>')
 def home(id):
-    hosted_events = event.Event.get_events_by_user_id(session['user_id'])
-    for e in hosted_events:
-        print('-------------------',e.location)
-    return render_template('dashboard.html',  events = event.Event.get_all_events(), hosted_events = hosted_events)
+    hosted_events = event.Event.get_events_by_user_id(id)
+    data = {
+        'city' : session['user_city'],
+        'state' : session['user_state'],
+    }
+    _events = event.Event.get_events_by_city(data)
+    return render_template('dashboard.html',  events = _events, hosted_events = hosted_events)
 
 @app.route('/user/profile/<int:id>')
 def user_profile(id):
@@ -59,7 +63,12 @@ def user_profile(id):
 def update_user(id):
     if 'user_id' not in session:
         return redirect ('/')
-    user.User.update_user(id)
+    if not user.User.validate_update(request.form):
+        return redirect(f'/edit_account_settings/{id}')
+    data = request.form
+    # data['id'] = id
+    print(data)
+    user.User.update_user(data)
     return redirect('/')
 
 @app.route('/edit_account_settings/<int:id>')
@@ -74,23 +83,3 @@ def logout():
     session.clear()
     return redirect('/')
 
-
-# @app.route('/show_info', methods=["POST"])
-# def display():
-#     if not user.User.validate_submission(request.form):
-#         return redirect('/')
-#     session['name'] = request.form["name"]
-#     session['location'] = request.form["location"]
-#     session['language'] = request.form['language']
-#     session['comments'] = request.form['comments']
-#     users.append(session)
-#     return redirect ('/information') 
-
-# @app.route('/information')
-# def show():
-#     return render_template('display.html')
-
-# @app.route('/newsubmit')
-# def reset():
-#     session.clear()
-#     return redirect('/')

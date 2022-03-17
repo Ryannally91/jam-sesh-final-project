@@ -20,9 +20,14 @@
       type="text/javascript"
       src="{{ url_for('static', filename='ajax_search.js')}}"
     ></script>
+    <script
+      defer
+      type="text/javascript"
+      src="{{ url_for('static', filename='script.js')}}"
+    ></script>
     <!-- bootstrap js at bottom -->
     <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs&libraries=places&callback=initAutocpmlete"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs&libraries=places&callback=initAutocomplete"
     async
     defer
 ></script>
@@ -79,8 +84,8 @@
     
     </nav> -->  
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
+      <div class="container-fluid ">
         <a class="navbar-brand" href="/">
           <img class="nav_icon"
     src="{{url_for('static', filename='/assests/jam_sesh_can_banjo.jpg')}}" width="40" height="40"/>
