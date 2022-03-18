@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <h1>hello</h1>
+{%extends "layout.html"%}{% block body%}
+<h1>Inbox</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Sender</th>
+            <th scope="col">Message</th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+    <tbody>
         {%for message in messages%}
-        <p>{{message.content}}</p>
+        <tr>
+            <td>{{message.sender.full_name}}</td>
+            <td>{{message.content}}</td>
+            <td>{{message.created_at}}</td>
+        </tr>
         {% endfor %}
-    </body>
-</html>
+    </tbody>
+    {% endblock %}
+</table>

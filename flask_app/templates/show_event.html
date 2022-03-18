@@ -15,7 +15,7 @@
                 When: {{event.date.strftime('%B %d, %Y')}} {{event.start_time}}
                 {{event.end_time}}
             </h6>
-            {%if r%}
+            {%if r.candidates != [] %}
             <h6>{{r.candidates[0].formatted_address}}</h6>
             {% else %}
             <h6>{{event.location}} {{event.city}}, {{event.state}}</h6>
@@ -27,20 +27,23 @@
                     <a href="/user/profile/{{event.user_id}}"
                         >{{event.host.full_name}}</a
                     >
+                    <p><a href="/">Home</a></p>
                 </small>
             </p>
-        </div>
-        <div class="mx-5">
-            <iframe
-                width="300"
-                height="225"
-                style="border: 3"
-                loading="lazy"
-                allowfullscreen
-                src="https://www.google.com/maps/embed/v1/place?q=place_id:{{r.candidates[0].place_id}}&key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs"
-            ></iframe>
+            {% if r.candidates != [] %}
+            <div class="mx-5">
+                <iframe
+                    style="border: 3"
+                    loading="lazy"
+                    allowfullscreen
+                    src="https://www.google.com/maps/embed/v1/place?q=place_id:{{r.candidates[0].place_id}}&key=AIzaSyDiuDwsqOke9BM1-IIHO3Po4Djx3znCfqs"
+                ></iframe>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+<!-- width="300"
+                height="225" -->

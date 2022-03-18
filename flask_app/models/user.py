@@ -79,7 +79,6 @@ class User:
         WHERE email = %(email)s
         ;'''
         result =  connectToMySQL(cls.db).query_db(query, data)
-        print('_________________', result)
         if result:
             result = cls(result[0])
 
@@ -113,12 +112,15 @@ class User:
 
     @classmethod
     def update_user(cls, data):
+
+        print('here I am')
         query = """
-        UPDATE ninjas
-        SET event_name = %(event_name)s, location = %(location)s,  state = %(state)s,  city = %(city)s, date_time = %(date_time)s, description = %(description)s, user_id= %(user_id)s
+        UPDATE users
+        SET first_name = %(first_name)s, last_name = %(last_name)s,  user_state = %(user_state)s,  user_city = %(user_city)s,  bio = %(bio)s, email = %(email)s
         WHERE id = %(id)s
         ;"""
         result = connectToMySQL(cls.db).query_db(query, data)
+        print('###########', result, '##########')
         return result
 
     # Validate 
@@ -151,7 +153,27 @@ class User:
             is_valid = False
         ##validation for state selector
         return is_valid
-
+    @staticmethod
+    def validate_update(input):
+        is_valid = True
+        if len(input['first_name']) < 1:
+            flash('name must enter at least 1 characters')
+            is_valid = False
+        if len(input['last_name']) < 1:
+            flash('name must enter at least 1 characters')
+            is_valid = False
+        
+        if not EMAIL_REGEX.match(input['email']): 
+            flash("Invalid email address!")
+            is_valid = False   
+        if len(input['bio']) < 1:
+            flash('bio must enter at least 20 characters')
+            is_valid = False
+        if len(input['user_city']) < 1:
+            flash('city must enter at least 1 characters')
+            is_valid = False
+        ##validation for state selector
+        return is_valid
         # Check to see if email already in db
 
     @staticmethod

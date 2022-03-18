@@ -1,7 +1,7 @@
 {%extends "layout.html"%}{% block body%}
 <div class="main">
     <h2 class="text-left">Welcome {{session.first_name}}</h2>
-    <h3 class="light text-center">Upcoming Events</h3>
+    <h3 class="light text-center">Upcoming Events Near You</h3>
     {% if events %}
     <table class="table table-bordered">
         <thead>
@@ -27,7 +27,7 @@
                 </td>
                 <td>{{event.location}}, {{event.city}}, {{event.state}}</td>
                 <td>{{event.host.first_name}} {{event.host.last_name}}</td>
-                <!-- if rsvp: display unrsvp.  else: RSVP -->
+
                 <td>
                     <form action="/RSVP/{{event.id}}" , method="post">
                         <input
@@ -49,11 +49,12 @@
                     </form>
                 </td>
             </tr>
+            {% else %}
+            <p>No upcoming events near you</p>
             {% endfor %}
         </tbody>
     </table>
-    {% else %}
-    <p>No upcoming jams</p>
+
     {% endif %} {% if hosted_events%}
     <h2>My Events</h2>
 

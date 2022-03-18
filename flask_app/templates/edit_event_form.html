@@ -20,10 +20,10 @@
         <input
             type="text"
             class="form-control"
-            id="location"
+            id="autocomplete"
             name="location"
             placeholder="Specific name (Zilker Park, Brewery, etc.)"
-            value="{{event.location}}"
+            value="{{event.location}}, {{event.city}}, {{event.state}}, USA"
             required
         />
     </div>
@@ -77,41 +77,6 @@
         />
     </div>
 
-    <div class="mb-3">
-        <label for="end_time" class="form-label">End time:</label>
-        <input
-            type="time"
-            class="form-control"
-            id="end_time"
-            name="end_time"
-            value="{{event.end_time}}"
-            required
-        />
-    </div>
-
-    <div class="mb-3">
-        <label for="city" class="form-label">City:</label>
-        <input
-            type="text"
-            class="form-control"
-            id="city"
-            name="city"
-            placeholder="City"
-            value="{{event.city}}"
-            required
-        />
-    </div>
-
-    <div class="mb-3">
-        <label for="user_state" class="form-label">State:</label>
-        <select name="state" id="">
-            {% for state in states %}{% if state == event.state %}
-            <option value="{{event.state}}" selected>{{event.state}}</option>
-            {% else %}
-            <option value="{{state}}">{{state}}</option>
-            {% endif %}{% endfor %}
-        </select>
-    </div>
     <button class="btn-primary" type="submit">Update</button>
 </form>
 {% with messages = get_flashed_messages() %}
