@@ -1,5 +1,5 @@
 {%extends "layout.html"%}{% block body%}
-<form action="/create_event" method="post" class="form-container">
+<form action="/create_event" method="post" class="form-container" id="myform">
     <input type="hidden" name="user_id" value="{{session['user_id']}}" />
 
     <div class="mb-3">

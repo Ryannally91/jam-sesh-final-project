@@ -1,6 +1,6 @@
-let autocomplete;
+// let autocomplete;
 function initAutocomplete() {
-    autocomplete = new google.maps.places.Autocomplete(
+    let autocomplete = new google.maps.places.Autocomplete(
         document.getElementById("autocomplete"),
         {
             //types: ["establishments"],
