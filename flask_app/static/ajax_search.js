@@ -26,9 +26,13 @@ search_events_form.onsubmit = function (e) {
   </table>`;
             results = document.getElementById("results");
             for (i = 0; i < data.length; i++) {
+                date = data[i].date;
+
                 results.innerHTML += `<tr>
-          <td><a href= "/event_details/${data[i].id}">${data[i].event_name}</a></td>
-          <td>${data[i].date}</td>
+          <td><a href= "/event_details/${data[i].id}">${
+                    data[i].event_name
+                }</a></td>
+          <td>${date.slice(0, -13)}</td>
           <td>${data[i].location}, ${data[i].city}, ${data[i].state}</td>
 
         </tr>`;
@@ -75,9 +79,13 @@ search_by_user_loc.onsubmit = function (e) {
   </table>`;
             results = document.getElementById("results");
             for (i = 0; i < data.length; i++) {
+                date = data[i].date;
+                console.log(date.slice(0, -13));
                 results.innerHTML += `<tr>
-          <td><a href= "/event_details/${data[i].id}">${data[i].event_name}</a></td>
-          <td>${data[i].date}</td>
+          <td><a href= "/event_details/${data[i].id}">${
+                    data[i].event_name
+                }</a></td>
+          <td>${date.slice(0, -13)}</td>
           <td>${data[i].location}, ${data[i].city}, ${data[i].state}</td>
 
         </tr>`;

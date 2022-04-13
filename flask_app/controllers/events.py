@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime, date
+import time
 from flask_app import app
 from flask import render_template, redirect, request, session, flash, url_for, jsonify
 from flask_app.models import user, message, comment, event
@@ -8,6 +9,7 @@ import requests #have to install for api requests to gmap
 from google_api_key import api_key
 from urllib.parse import urlencode
 import json
+
 
 
 states = [ 'AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
@@ -85,6 +87,7 @@ def show(id):
     if 'user_id' not in session:
         return render_template('index.html')
     this_event = event.Event.get_event_by_id(id)
+    start = this_event.start_time #try to convert times
     base_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
     location = this_event.location
     print(location)
