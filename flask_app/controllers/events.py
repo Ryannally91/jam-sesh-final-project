@@ -5,7 +5,7 @@ from flask_app import app
 from flask import render_template, redirect, request, session, flash, url_for, jsonify
 from flask_app.models import user, message, comment, event
 from flask_app.controllers import users, comments
-import requests #have to install for api requests to gmap
+import requests 
 from google_api_key import api_key
 from urllib.parse import urlencode
 import json
@@ -50,7 +50,7 @@ def search_results():
     for _event in events:
         print(_event,  ' ##################################')
     return jsonify(events)
-    #display as AJAX with pagination
+    
 
 @app.route('/search_by_user_loc', methods=["POST"])
 def search_by_user_loc():
@@ -87,7 +87,7 @@ def show(id):
     if 'user_id' not in session:
         return render_template('index.html')
     this_event = event.Event.get_event_by_id(id)
-    start = this_event.start_time #try to convert times
+    
     base_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
     location = this_event.location
     print(location)
@@ -102,10 +102,6 @@ def show(id):
     places_endpoint = f"{base_url}?{params_encoded}"
 
     r = requests.get(places_endpoint)
-    #if len(r.candidates) <1:  redirect with flash errors
-    # put this as validation when creating an event (put in create controler, use form data to pass through)
-    print(r.status_code)
-    print(r.json())  
     r = r.json()
     
     return render_template('show_event.html', event = this_event, r = r )
@@ -115,12 +111,10 @@ def edit_event_form(id):
     if 'user_id' not in session:
         return render_template('index.html')
     _event = event.Event.get_event_by_id(id)
-    print(_event.state,'----', _event.location, _event.city)
     return render_template('edit_event_form.html', event = _event)
 
 @app.route('/update_event/<int:id>', methods = ['POST'])
 def update_event(id):
-    print('++++++++++++++', request.form,'+++++++++++++')
     if not event.Event.validate_event(request.form):
             return redirect(f'/edit/event/{id}') 
     print(request.form['id'], '$$$$$$$$$$$$$$$$44')
@@ -141,9 +135,6 @@ def delete_event(id):
     event.Event.delete_event(id)
     return redirect (f"/dashboard/{session['user_id']}")
 
-
-
-# , results = event.Event.get_events_by_city(request.form)
 
 @app.route('/RSVP/<int:id>', methods = ['POST'])
 def rsvp(id):

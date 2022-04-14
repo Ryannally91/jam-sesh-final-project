@@ -4,7 +4,7 @@ from flask_app import app
 import re, math
 from datetime import datetime
 from flask_app.models import user
-#test 
+
 
 
 class Message:
@@ -19,7 +19,7 @@ class Message:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-#notice that timestamp is an instance method, not a class
+
     def timestamp(self):
         now = datetime.now()
         delta = now - self.created_at

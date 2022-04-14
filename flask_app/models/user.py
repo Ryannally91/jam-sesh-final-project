@@ -39,7 +39,7 @@ class User:
         Insert INTO users (first_name, last_name, email, password, bio, user_state, user_city)
         VALUES (%(first_name)s, %(last_name)s, %(email)s,%(password)s, %(bio)s, %(user_state)s, %(user_city)s)
         ;'''
-        #fat model:
+
         user_id = connectToMySQL(cls.db).query_db(query,data)
         session['user_id'] = user_id
         session['first_name']=  data['first_name']
@@ -69,7 +69,7 @@ class User:
         if len(results) < 1:
             return False
         return cls(results[0])
-        # message.Message.get_all_messages(id) could put in this return or in controller
+        
 
     @classmethod
     def find_by_email(cls, data):
@@ -151,7 +151,6 @@ class User:
         if len(input['user_city']) < 1:
             flash('city must enter at least 1 characters')
             is_valid = False
-        ##validation for state selector
         return is_valid
     @staticmethod
     def validate_update(input):
@@ -172,9 +171,8 @@ class User:
         if len(input['user_city']) < 1:
             flash('city must enter at least 1 characters')
             is_valid = False
-        ##validation for state selector
         return is_valid
-        # Check to see if email already in db
+
 
     @staticmethod
     def login(data):
