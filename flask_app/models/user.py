@@ -186,12 +186,12 @@ class User:
         return False
 
         
-# Make a parse data function.  Takes care of much of the logic in contollers
+# Make a parse data function to sanitize data 
     @staticmethod
     def parsed_data(data):
         parsed_data={
-            'first_name': data['first_name'],
-            'last_name': data['last_name'],
+            'first_name': data['first_name'].strip(),
+            'last_name': data['last_name'].strip(),
             'email': data['email'].lower().strip(),
             'password' : bcrypt.generate_password_hash(data['password']),
             'bio': data['bio'],
