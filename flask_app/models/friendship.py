@@ -10,7 +10,6 @@ class Friendship:
         self.user_id = data['user_id'],
         self.friend_id = data['friend_id']
 
-        #to-do
 
 # create Friendship
     @classmethod
